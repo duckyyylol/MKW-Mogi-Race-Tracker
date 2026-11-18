@@ -155,6 +155,8 @@
             clearMogi();
         };
     });
+
+    let showBanner = $state(true);
 </script>
 
 {#if !mogi && !mogiStarted}
@@ -168,6 +170,12 @@
         />
     </Column>
 {:else}
+    <!-- {#if showBanner} -->
+        <div class="banner" style:width={showBanner ? "calc(70% - 1em - 25px)" : "0px"} style:opacity={showBanner ? 1 : 0}>
+            <Text weight="bold" maxLines={1} inheritColor>This site will not be updated with new tracks as I do not actively play Lounge.</Text>
+            <Text weight="black" inheritColor><span onclick={() => {showBanner = false;}}>X</span></Text>
+        </div>
+    <!-- {/if} -->
     <div class="left">
         <Column justifyContent="center" alignItems="center" textAlign="left">
             <Column
@@ -473,6 +481,24 @@
 {/if}
 
 <style lang="scss">
+    .banner {
+        transition: 0.3s all;
+        position: absolute;
+        left: 0;
+        max-width: 70%;
+        background-image: linear-gradient(to left, var(--yellow), var(--accent));
+        color: var(--mantle) !important;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.33em 0.5em;
+        border-radius: var(--border-md) 0 0px var(--border-md);
+        & span {
+            cursor: pointer;
+        }
+    }
+
     .grayscale {
         filter: grayscale();
     }
